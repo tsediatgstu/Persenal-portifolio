@@ -243,7 +243,7 @@ main {
   text-align: center;
 }
 #About .about-col .img-col img {
-  width: 120%;
+  width: 100%;
 }
 #About .about-col .info-coll {
   flex-basis: 70%;
