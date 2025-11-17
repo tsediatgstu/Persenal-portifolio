@@ -1,25 +1,29 @@
+/* ...existing code... */
+
 /*google fonts*/
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 /*---css rest---*/
 * {
   margin: 0;
-  padding: 0%;
+  padding: 0;
   box-sizing: border-box;
-  font-family: "poppins", sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 /*global variable*/
 :root {
-  ---sideBGcolor: #040b14;
-  ---themecolor: #00a78e;
-  ---iconcolor: #2c2f3f;
-  ---textcolor: #353535;
-  ---bgcolor: #f7f7f7;
+  --sideBGcolor: #040b14;
+  --themecolor: #00a78e;
+  --iconcolor: #2c2f3f;
+  --iconBGcolor: rgba(255, 255, 255, 0.06);
+  --textcolor: #353535;
+  --bgcolor: #f7f7f7;
 }
+
 header {
   height: 100vh;
   width: 300px;
   padding: 15px 30px;
-  background-color: var(---sideBGcolor);
+  background-color: var(--sideBGcolor);
   overflow: auto;
   position: fixed;
   left: 0;
@@ -36,11 +40,11 @@ header .profile {
 header .profile img {
   width: 150px;
   border-radius: 50%;
-  border: 10px solid var(---iconcolor);
+  border: 10px solid var(--iconcolor);
 }
 header .profile h1 {
   color: white;
-  font: weight 600;
+  font-weight: 600;
 }
 header .profile .social-icons a {
   display: inline-block;
@@ -49,19 +53,20 @@ header .profile .social-icons a {
   border-radius: 50%;
   text-align: center;
   line-height: 37px;
-  background-color: var(---iconBGcolor);
+  background-color: var(--iconBGcolor);
   color: white;
   font-size: 18px;
   margin: 1.5px;
   transition: 0.4s;
 }
 header .profile .social-icons a:hover {
-  background-color: var(---themecolor);
+  background-color: var(--themecolor);
 }
 /*----Navvv Barr------*/
 
 header nav {
   margin-top: 30px;
+  height: calc(100vh - 320px);
 }
 header nav ul li {
   list-style: none;
@@ -76,33 +81,50 @@ header nav ul li a {
   font-size: 15px;
   letter-spacing: 0.6px;
 }
+header nav ul li a {
+  display: block;
+  width: 100%;
+  padding: 12px 10px;
+  box-sizing: border-box;
+  text-align: left;
+}
 header nav ul li a i {
   margin-right: 10px;
   font-size: 20px;
   transition: 0.4s;
 }
 header nav ul li a:hover {
-  color: var(---themecolor);
+  color: var(--themecolor);
+}
+/* style for currently active nav link */
+header nav ul li a.active {
+  color: var(--themecolor);
+  font-weight: 700;
+  background: rgba(0,0,0,0.06);
+  border-radius: 6px;
+  padding: 7px 12px;
+  display: inline-block;
+}
+header nav ul li a.active i { 
+  color: var(--themecolor); /* keep icon colored too */
 }
 header nav ul li .active {
-  color: var(---themecolor);
+  color: var(--themecolor);
 }
 /*--FOOTTER---*/
 header .footer {
   text-align: center;
-  background-color: var(---sideBGcolor);
+  background-color: var(--sideBGcolor);
   width: 300px;
   color: lightgray;
   font-size: 13px;
   letter-spacing: 0.6px;
   padding: 15px;
-  position: 0;
-  bottom: 0;
-  left: 0;
+  position: relative;
   transition: 0.4s;
 }
 header .footer p a {
-  color: var(---themecolor);
+  color: var(--themecolor);
 }
 #MenuBtn {
   position: fixed;
@@ -112,11 +134,11 @@ header .footer p a {
   width: 40px;
   height: 40px;
   color: white;
-  background-color: var(---themecolor);
+  background-color: var(--themecolor);
   text-align: center;
   line-height: 42px;
   border-radius: 50%;
-  box-shadow: 0 0 20px rgb(0, 0, 0, 20%);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
   display: none;
   z-index: 999;
 }
@@ -126,7 +148,7 @@ header .footer p a {
     left: -300px;
   }
   header,
-  .footer {
+  header .footer {
     left: -300px;
   }
   #MenuBtn {
@@ -137,12 +159,10 @@ header .footer p a {
 .mobile-nav-active header {
   left: 0;
 }
-.mobile-nav-active header.footer {
-  left: 0;
-}
+
 main {
   margin-left: 300px;
-  background-color: var(---bgcolor);
+  background-color: var(--bgcolor);
   transition: 0.3s;
 }
 @media only screen and (max-width: 1050px) {
@@ -150,6 +170,16 @@ main {
     margin-left: 0;
   }
 }
+/* ...existing code... */
+/* justify text in About and Fact sections */
+#About .sub-para,
+#About .about-col .info-col p,
+#fact .sub-para {
+  text-align: justify;
+  text-justify: inter-word; /* better spacing on supported browsers */
+  hyphens: auto;
+}
+/* ...existing code... */
 #Home {
   height: 100vh;
   width: 100%;
@@ -166,13 +196,16 @@ main {
   content: "";
   width: 100%;
   height: 100%;
-  height: 100%;
   background-color: rgba(0, 0, 0, 0.431);
   position: absolute;
   top: 0;
   left: 0;
+  z-index: 0;
+  pointer-events: none;
+
 }
-#Home .home-row {
+#Home .Home-row {
+  position: relative;
   z-index: 1;
 }
 #Home .Home-row h1 {
@@ -184,15 +217,15 @@ main {
   line-height: 70px;
 }
 #Home .Home-row h1 span {
-  color: var(---themecolor);
+  color: var(--themecolor);
 }
-#Home .Home-row P {
+#Home .Home-row p {
   color: whitesmoke;
   font-size: 30px;
   font-weight: 500;
 }
 #Home .Home-row p span {
-  border-bottom: 4px solid var(---themecolor);
+  border-bottom: 4px solid var(--themecolor);
 }
 @media only screen and (max-width: 670px) {
   #Home {
@@ -223,11 +256,11 @@ main {
 .divider {
   width: 80px;
   height: 4px;
-  background-color: var(---themecolor);
+  background-color: var(--themecolor);
   border-radius: 3px;
 }
 .sub-para {
-  color: var(---textcolor);
+  color: var(--textcolor);
   font-size: 15px;
   letter-spacing: 0.5px;
   font-weight: 500;
@@ -245,18 +278,18 @@ main {
 #About .about-col .img-col img {
   width: 100%;
 }
-#About .about-col .info-coll {
+#About .about-col .info-col {
   flex-basis: 70%;
 }
 #About .about-col .info-col h2 {
-  color: var(---themecolor);
+  color: var(--themecolor);
   font-weight: 700;
   font-size: 35px;
   letter-spacing: 0.5px;
   margin-top: -10px;
 }
 #About .about-col .info-col p {
-  color: var(---textcolor);
+  color: var(--textcolor);
   font-size: 15px;
   letter-spacing: 0.5px;
   font-style: italic;
@@ -272,15 +305,15 @@ main {
   margin: 15px;
 }
 #About .about-col .info-col .icon-list-col .icon-list ul li i {
-  color: var(---themecolor);
+  color: var(--themecolor);
 }
 #About .about-col .info-col .icon-list-col .icon-list ul li strong {
-  color: var(---sideBGcolor);
+  color: var(--sideBGcolor);
   font-weight: 600;
   margin-right: 2px;
 }
 #About .about-col .info-col .icon-list-col .icon-list ul li span {
-  color: var(---textcolor);
+  color: var(--textcolor);
   font-weight: 500;
   font-size: 15px;
 }
@@ -305,7 +338,7 @@ main {
     font-size: 25px;
     letter-spacing: 0px;
   }
-  About .about-col .info-col p {
+  #About .about-col .info-col p {
     font-size: 14px;
     letter-spacing: 0px;
   }
@@ -342,21 +375,21 @@ main {
 #fact .fact-row {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-gap: 30x;
+  grid-gap: 30px;
   margin-top: 50px;
 }
 #fact .fact-row .fact-box i {
-  color: var(---themecolor);
+  color: var(--themecolor);
   font-size: 40px;
 }
 #fact .fact-row .fact-box strong {
-  color: var(---sideBGcolor);
+  color: var(--sideBGcolor);
   font-size: 30px;
   margin-left: 5px;
   font-weight: 600;
 }
 #fact .fact-row .fact-box p {
-  color: var(---textcolor);
+  color: var(--textcolor);
   font-weight: 500;
   font-size: 16px;
 }
@@ -379,7 +412,7 @@ main {
     font-size: 20px;
   }
   #fact .fact-row .fact-box p {
-    color: var(---textcolor);
+    color: var(--textcolor);
     font-weight: 400;
     font-size: 14px;
   }
@@ -403,7 +436,7 @@ main {
   margin-bottom: 4px;
 }
 #skill .skill-row .skill-box .skill-info h2 {
-  color: var(---sideBGcolor);
+  color: var(--sideBGcolor);
   font-weight: 600;
   font-size: 15px;
   font-style: italic;
@@ -417,7 +450,7 @@ main {
 
 #skill .skill-row .skill-box .skill-outer-line .skill-inner-line {
   height: 10px;
-  background-color: var(---themecolor);
+  background-color: var(--themecolor);
   border-radius: 20px;
 }
 
@@ -447,7 +480,7 @@ main {
   flex-basis: 50%;
 }
 #resume .resume-row .resume-cols h2 {
-  color: var(---sideBGcolor);
+  color: var(--sideBGcolor);
   font-weight: 600;
   font-size: 25px;
   margin: 15px 0;
@@ -455,7 +488,7 @@ main {
 #resume .resume-row .resume-cols .my-info {
   padding: 0 20px 0 20px;
   margin: 20px 0;
-  border-left: 2px solid var(---themecolor);
+  border-left: 2px solid var(--themecolor);
   position: relative;
 }
 #resume .resume-row .resume-cols .my-info::before {
@@ -466,7 +499,7 @@ main {
   width: 15px;
   height: 15px;
   border-radius: 50%;
-  border: 2px solid var(---themecolor);
+  border: 2px solid var(--themecolor);
   background-color: white;
 }
 
@@ -485,7 +518,7 @@ main {
   position: relative;
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 0 20px (0, 0, 0, 20%);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
 }
 #Portifolio .port-row .port-item .port-image img {
   width: 100%;
@@ -497,7 +530,7 @@ main {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: var(---themecolor);
+  background-color: var(--themecolor);
   padding: 0 15px;
   text-align: center;
   display: flex;
@@ -515,12 +548,12 @@ main {
   visibility: visible;
 }
 #Portifolio .port-row .port-item .port-info h4 {
-  color: var(---bgcolor);
+  color: var(--bgcolor);
   font-size: 25px;
   font-weight: 600;
 }
 #Portifolio .port-row .port-item .port-info h4 + p {
-  color: var(---bgcolor);
+  color: var(--bgcolor);
   font-size: 14px;
 }
 #Portifolio .port-row .port-item .port-info a {
@@ -529,21 +562,21 @@ main {
   font-size: 20px;
   width: 45px;
   height: 45px;
-  background-color: var(---bgcolor);
+  background-color: var(--bgcolor);
   border-radius: 50%;
-  color: var(---themecolor);
+  color: var(--themecolor);
   line-height: 46px;
   transition: 0.4s;
 }
 #Portifolio .port-row .port-item .port-info a:hover {
-  background-color: var(---sideBGcolor);
-  color: var(---bgcolor);
+  background-color: var(--sideBGcolor);
+  color: var(--bgcolor);
 }
 @media only screen and (max-width: 650px) {
   #Portifolio {
     padding: 50px 10px;
   }
-  #Portifolio.port-row {
+  #Portifolio .port-row {
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 15px;
   }
@@ -564,7 +597,7 @@ main {
   flex-basis: 40%;
   min-width: 40%;
   background-color: white;
-  box-shadow: 20px rgb(0, 0, 0, 20%);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
   border-radius: 4px;
   padding: 30px;
 }
@@ -578,30 +611,30 @@ main {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  border: 2px solid var(---themecolor);
+  border: 2px solid var(--themecolor);
   text-align: center;
   line-height: 47px;
   font-size: 20px;
-  color: var(---themecolor);
+  color: var(--themecolor);
   transition: 0.5s;
 }
 #contact .contact-row .contact-left .map {
   width: 100%;
-  height: 100;
+  height: 100px;
   padding: 10px;
 }
 
 #contact .contact-row .contact-left .icon-box:hover .icon i {
-  background-color: var(---themecolor);
-  color: var(---bgcolor);
+  background-color: var(--themecolor);
+  color: var(--bgcolor);
 }
 #contact .contact-row .contact-left .icon-box.info h4 {
   font-size: 20px;
-  color: var(---sideBGcolor);
+  color: var(--sideBGcolor);
   font-weight: 600;
 }
-contact .contact-row .contact-left .icon-box.info h4 + p {
-  color: var(---textcolor);
+#contact .contact-row .contact-left .icon-box.info h4 + p {
+  color: var(--textcolor);
   font-size: 15px;
   font-weight: 500;
 }
@@ -610,7 +643,7 @@ contact .contact-row .contact-left .icon-box.info h4 + p {
   flex-basis: 60%;
   min-width: 60%;
   background-color: white;
-  box-shadow: 20px rgb(0, 0, 0, 20%);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
   border-radius: 4px;
   padding: 30px;
 }
@@ -622,7 +655,7 @@ contact .contact-row .contact-left .icon-box.info h4 + p {
   margin: 25px 0;
   font-size: 15px;
   font-weight: 500;
-  color: var(---textcolor);
+  color: var(--textcolor);
   padding: 10px 20px;
   border: 2px solid lightgray;
   border-radius: 2px;
@@ -632,12 +665,12 @@ contact .contact-row .contact-left .icon-box.info h4 + p {
 }
 #contact .contact-row .contact-right form input:focus,
 #contact .contact-row .contact-right form textarea:focus {
-  border: 2px solid var(---themecolor);
+  border: 2px solid var(--themecolor);
 }
 #contact .contact-row .contact-right form input[type="submit"] {
-  background-color: var(---themecolor);
-  color: var(---bgcolor);
-  border: 2px solid var(---themecolor);
+  background-color: var(--themecolor);
+  color: var(--bgcolor);
+  border: 2px solid var(--themecolor);
   font-size: 17px;
   font-weight: 400;
   cursor: pointer;
@@ -651,5 +684,14 @@ contact .contact-row .contact-left .icon-box.info h4 + p {
     gap: 10px;
   }
 }
-
+/* ...existing code... */
+/* justify resume education/details paragraph */
+#resume .my-edu p.resume-justify,
+#resume .my-edu p {
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+}
+/* ...existing code... */
 /*=====================portifolio Section start===========*/
+/* ...existing code... */
